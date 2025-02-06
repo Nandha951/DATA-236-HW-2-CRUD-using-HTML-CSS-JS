@@ -36,13 +36,19 @@ app.post('/add-book', function (req, res) {
     res.redirect('/');
 });
 
-// Update Book
+
 app.get('/update-book', function (req, res) {
-    res.render('update', { book: books.find(b => b.BookID === '1') }); // Pass the book data to the view
+    res.render('update-book', { book: null });
 });
 
 app.post('/update-book', function (req, res) {
-    const bookIdToUpdate = '1';
+    const bookIdToUpdate = String(req.body.bookId);
+
+    const bookToUpdate = books.find(book => book.BookID === bookIdToUpdate);
+    if (!bookToUpdate) {
+        return res.send("Book not found");
+    }
+
     const updatedBook = {
         "BookID": bookIdToUpdate,
         "Title": req.body.title,
@@ -68,6 +74,6 @@ app.post('/delete-book', function (req, res) {
 });
 
 
-app.listen(5003, function () {
+app.listen(5001, function () {
     console.log("Server listening on port 5001");
 });
