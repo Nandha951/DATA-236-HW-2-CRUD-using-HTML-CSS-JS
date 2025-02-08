@@ -62,16 +62,22 @@ app.post('/update-book', function (req, res) {
     res.redirect('/');
 });
 
-// Delete Book
 app.get('/delete-book', function (req, res) {
     res.render('delete');
 });
 
 app.post('/delete-book', function (req, res) {
-    const maxId = Math.max(...books.map(book => parseInt(book.BookID, 10)));
-    books = books.filter(book => parseInt(book.BookID, 10) !== maxId);
+    const bookIdToDelete = req.body.bookId;
+
+    if (!bookIdToDelete) {
+        return res.send("Book ID is required");
+    }
+
+    books = books.filter(book => book.BookID !== bookIdToDelete);
+
     res.redirect('/');
 });
+
 
 
 app.listen(5001, function () {

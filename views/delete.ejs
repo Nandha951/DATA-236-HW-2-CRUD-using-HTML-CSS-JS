@@ -10,7 +10,8 @@
         <h1 class="heading">Delete Book</h1>
     </div>
     <form action="/delete-book" method="post">
-        <p>Are you sure you want to delete the book with the highest ID?</p>
+        <label for="bookId">Book ID to Delete:</label>
+        <input type="text" id="bookId" name="bookId" required><br><br>
         <button type="submit">Delete Book</button>
     </form>
 </body>
